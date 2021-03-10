@@ -14,30 +14,56 @@
 var filesToDownload = [
 	{
 		name: 'test-5mb.zip',
-		url: 'http://ipv4.download.thinkbroadband.com/5MBxxxx.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
 		lastUpdated: '2021-02-14T17:58:31Z'
 	}
-	// ,
-	// {
-	// 	name: 'test-10mb.zip',
-	// 	url: 'http://87.76.21.20/test.zip',
-	// 	lastUpdated: '2021-02-15T17:58:31Z'
-	// },
-	// {
-	// 	name: 'test-20mb.zip',
-	// 	url: 'http://ipv4.download.thinkbroadband.com/20MB.zip',
-	// 	lastUpdated: '2021-02-14T17:58:31Z'
-	// },
-	// {
-	// 	name: 'test-50mb.zip',
-	// 	url: 'http://ipv4.download.thinkbroadband.com/50MB.zip',
-	// 	lastUpdated: '2021-02-14T17:58:31Z'
-	// },
-	// {
-	// 	name: 'test-100mb.zip',
-	// 	url: 'http://ipv4.download.thinkbroadband.com/100MB.zip',
-	// 	lastUpdated: '2021-02-14T17:58:31Z'
-	// }
+	,
+	{
+		name: 'test-10mb.zip',
+		url: 'http://87.76.21.20/test.zip',
+		lastUpdated: '2021-02-15T17:58:31Z'
+	},
+	{
+		name: 'test-20mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/20MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
+	{
+		name: 'test-50mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/50MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
+	{
+		name: 'test-100mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/100MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
+
+	{
+		name: 'asdf-5mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
+	{
+		name: 'asdf-10mb.zip',
+		url: 'http://87.76.21.20/test.zip',
+		lastUpdated: '2021-02-15T17:58:31Z'
+	},
+	{
+		name: 'asdf-20mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/20MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
+	{
+		name: 'asdf-50mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/50MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
+	{
+		name: 'asdf-100mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/100MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	}
 ];
 
 
