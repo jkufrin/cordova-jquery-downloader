@@ -13,11 +13,16 @@
 //----REFERENCE-----//
 var filesToDownload = [
 	{
-		name: 'test-5mb.zip',
-		url: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
+		name: 'image0.jpg',
+		url: 'https://www.travelwisconsin.com/uploads/medialibrary/39/393c212b-df32-47f6-8d3b-d47666842348-kohler-beach-marquee_1905x782_ll.jpg',
 		lastUpdated: '2021-02-14T17:58:31Z'
 	}
 	,
+	{
+		name: 'test-5mb.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
 	{
 		name: 'test-10mb.zip',
 		url: 'http://87.76.21.20/test.zip',
@@ -413,9 +418,9 @@ function updateFileDownloadProgress() {
 		}
 
 
-		console.log('~~~~~~> fileDownloadErrorList: ' + JSON.stringify(fileDownloadErrorList));
 		var errorMsg = '';
 		if(fileDownloadErrorList.length > 0) {
+			console.log('~~~~~~> fileDownloadErrorList: ' + JSON.stringify(fileDownloadErrorList));
 			errorMsg = ' Number of errors: ' + fileDownloadErrorList.length;
 		}
 

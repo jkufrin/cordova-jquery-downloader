@@ -1,8 +1,12 @@
 # Cordova jQuery Downloader
 
+## File Transfer -> XHR
+- https://cordova.apache.org/blog/2017/10/18/from-filetransfer-to-xhr2.html
+- Make sure data is coming from HTTPS for Android to work
 
 ## TODO
 - could update the status after 100% and before done to a writing file status
+- add cancel button(s)
 
 
 ## Cordova Plugins
