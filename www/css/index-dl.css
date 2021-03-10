@@ -12,38 +12,52 @@
     width: 100%;
     height: auto;
     margin: 0 auto;
+    min-width: 300px;
 }
 
-.progress-wrapper{
+/* .progress-wrapper{
     box-sizing: border-box;
     width: 100%;
     height: auto;
     padding: .5rem;
-}
+} */
 
 .progress-holder{
     box-sizing: border-box;
     width: 100%;
     height: auto;
     background: white;
-    padding: .5rem 0;
+    padding: .25rem;
+    position: relative;
 }
 .progressbar{
     width: 1%;
-    height: 5px;
+    height: 30px;
     background: purple;
+    position: relative;
 }
 
 .progressbar-text{
     width: auto;
     height: auto;
     font-size: .8rem;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: .75rem;
+	transform: translateY(-50%);
+	z-index: 9;
+}
+
+.progressbar-text .title{
+    margin-right: .5rem;
 }
 
 .js-loader{
     width: 100%;
     margin: 0 auto;
     word-break: break-all;
+	margin-bottom: 10px;
 }
 
 .bred{

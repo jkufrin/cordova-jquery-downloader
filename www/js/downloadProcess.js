@@ -50,6 +50,7 @@ var downloadingArr = [];
 var ftCounter = 0;//FileTransferCounter
 var ftArr = [];//FileTransferArray
 var maxDownloads = 3;
+var downloadsInProgress = 0;
 var current = '';
 
 
@@ -206,13 +207,16 @@ function startFileTransfer(){
 	filesToDownload.shift();
 	console.log('startFileTransfer.downloadingArr.pushed: ' + JSON.stringify(downloadingArr));
 
-	var divProg = '<div class="js-prog-' + ftCounter + ' progress-wrapper js-progress-wrapper">';
-			divProg += '<div class="title">' + ftCounter + ': ' + downloadingArr[ftCounter].name + '</div>';
-			divProg += '<div class="progress-holder">';
-				divProg += '<div class="progressbartext js-progressbar-text">%%</div>';
-				divProg += '<div class="progressbar js-progressbar"></div>';
+	
+
+	var divProg = '<div class="progress-holder js-progress-downloader js-prog-' + ftCounter + '">';
+			divProg += '<div class="progressbar-text js-progressbar-text">';
+				divProg += '<span class="title">' + ftCounter + ': ' + downloadingArr[ftCounter].name + '</span>';
+				divProg += '<span class="prog js-progressbar-text-perc">XX</span>';
 			divProg += '</div>';
+			divProg += '<div class="progressbar js-progressbar"></div>';
 		divProg += '</div>';
+
 
 	$('.js-loader').append(divProg);
 	$('#status-title').html("Files remaining: " + filesToDownload.length);
@@ -234,10 +238,9 @@ function startFileTransfer(){
 	ftCounter ++;//increment counter
 	console.log("startFileTransfer.ftCounter++ " + ftCounter);
 
-	var numInProgress = $('.js-progress-wrapper').length;
-	console.log("startFileTransfer.numInProgress: " + numInProgress);
-	//if(downloadingArr.length < maxDownloads) {
-	if(numInProgress < maxDownloads) {
+	downloadsInProgress = getDownloadsInProgress ();
+	$('#status-body').html("Downloads remaining1: " + downloadsInProgress);
+	if(downloadsInProgress < maxDownloads) {
 		console.log('download started, and theres room for more! shift, update, and check the list');
 		
 		setTimeout(function(){ 
@@ -245,6 +248,17 @@ function startFileTransfer(){
 		}, 300);
 	}
 	
+}
+
+
+
+/**
+ * Get number of downloaders still on screen
+ */
+function getDownloadsInProgress () {
+	downloadsInProgress = $('.js-progress-downloader').length;
+	console.log("getDownloadsInProgress: " + downloadsInProgress);
+	return downloadsInProgress;
 }
 
 
@@ -274,13 +288,13 @@ function onFileProgress (index, event) {
 	if (event.lengthComputable) {
 		var percentComplete = event.loaded / event.total * 100;
 		console.log('onFileProgress.percentComplete: ' + percentComplete + '  ~-- index: ' + index);
-		$('.js-prog-' + index + ' .js-progressbar-text').html(percentComplete.toFixed(2));
+
+		$('.js-prog-' + index + ' .js-progressbar-text-perc').html(percentComplete.toFixed(2) + '%');
 		$('.js-prog-' + index + ' .js-progressbar').css("width", percentComplete + "%");
-		// console.log('onFileProgress.percentComplete: ' + percentComplete);
-		// console.log('onFileProgress.index: ' + index);
+
 	} else {
 		// Unable to compute progress information since the total size is unknown
-		$('.js-prog-' + index + ' .js-progressbar-text').html("Downloading...");
+		$('.js-prog-' + index + ' .js-progressbar-text-perc').html("Downloading...");
 	}
 }
 
@@ -305,25 +319,22 @@ function onFileDownloadSuccess (index, xhr, event) {
 		console.log('fileEntry: ' + JSON.stringify(fileEntry));
 		fileEntry.createWriter(function (fileWriter) {
 			fileWriter.onwriteend = function (e) {
-				console.log('Write of file completed.');
+				console.log('Write of file completed: ' + downloadingArr[index].name);
 
-				$('.js-prog-' + index + ' .js-progressbar-text').html('DONE');
+				$('.js-prog-' + index + ' .js-progressbar-text-perc').html('DONE');
 				$('.js-prog-' + index + '').addClass('done');
-				$('.js-prog-' + index + '').removeClass('js-progress-wrapper');
-				
-				
-				//DO NOT that was messing it up!!
-				//remove first file from download list to continue through the list
-				// downloadingArr.shift();
-				// console.log('onFileDownloadSuccess.downloadingArr.shifted: ' + JSON.stringify(downloadingArr));
-				//filesToDownload.shift();
+				$('.js-prog-' + index + '').removeClass('js-progress-downloader');//TODO: SWITCH TO REMOVE DIV COMPLETELY
+
 				setTimeout(function(){ 
+					downloadsInProgress = getDownloadsInProgress ();
+					$('#status-body').html("Downloads remaining2: " + downloadsInProgress);
+
 					updateFileDownloadProgress();  
 				}, 300);
 
 			};
 			fileWriter.onerror = function (e) {
-				console.log('Write failed');
+				console.log('Write failed: ' + downloadingArr[index].name);
 			};
 			fileWriter.write(blob);
 		} );
@@ -351,19 +362,7 @@ function onFileDownloadFail(error) {
 	updateFileDownloadProgress();
 }
 
-// /* on file download success */
-// function onFileDownloadSuccess() {
 
-// 	//set the storage var
-// 	//if(!appStorageDir){
-// 		//appStorageDir = file.toNativeURL().substr(0, file.toNativeURL().lastIndexOf("/") + 1);
-// 	//}
-// 	console.log('finished downloading file');
-// 	//remove first file from download list to continue through the list
-// 	downloadingArr.shift();
-// 	//filesToDownload.shift();
-// 	updateFileDownloadProgress();
-// }
 
 /* update file download progress */
 function updateFileDownloadProgress() {
@@ -374,7 +373,11 @@ function updateFileDownloadProgress() {
 
 		//TODO: IF NO MORE TO QUEUE UP, CHECK WHAT IS CURRENTLY DOWNLOADING
 
-
+		downloadsInProgress = getDownloadsInProgress ();	
+		if(downloadsInProgress > 0) {
+			console.log('keep running until all files are done downloading and writing to system');
+			return false;
+		}
 
 		filesDownloaded = 'true';
 		localStorage.setItem('contentVerified', true);
