@@ -264,29 +264,8 @@ function startFileTransfer(){
 
 
 
-/**
- * Get number of downloaders still on screen
- */
-function getDownloadsInProgress () {
-	downloadsInProgress = $('.js-progress-downloader').length;
-	console.log("getDownloadsInProgress: " + downloadsInProgress);
-	return downloadsInProgress;
-}
 
 
-
-/**
- * XHR callback file loading error
- * progress on transfers from the server to the client (downloads)
- * https://forum.ionicframework.com/t/how-to-download-stuff-now-that-transfer-file-is-deprecated/127451/8
- * 
- * @param {*} index  //index in the array that this XHR is tracking
- * @param {*} event 
- */
-function onFileDownloadError (index, xhr, event) {
-	console.log('onFileDownloadError.event: ' + JSON.stringify(event) + '  ~-- status: ' + xhr.status + '  ~-- index: ' + index);
-	onFileDownloadFail(xhr.status, index);
-}
 
 
 /**
@@ -354,7 +333,14 @@ function onFileDownloadSuccess (index, xhr, event) {
 }
 
 
-
+/**
+ * Get number of downloaders still on screen
+ */
+function getDownloadsInProgress () {
+	downloadsInProgress = $('.js-progress-downloader').length;
+	console.log("getDownloadsInProgress: " + downloadsInProgress);
+	return downloadsInProgress;
+}
 
 
 /**
@@ -362,10 +348,12 @@ function onFileDownloadSuccess (index, xhr, event) {
  * @param {*} index 
  */
 function unloadProgressDownloader (index) {
-	$('.js-prog-' + index + ' .js-progressbar-text-perc').html('DONE');
-	$('.js-prog-' + index + '').addClass('done');
-	$('.js-prog-' + index + '').removeClass('js-progress-downloader');//TODO: DEV ONLY - SWITCH TO REMOVE DIV COMPLETELY
-	$('.js-prog-' + index + '').remove();//TODO: PRODUCTION 
+	//DEV ONLY - SWITCH TO REMOVE DIV COMPLETELY
+	//$('.js-prog-' + index + ' .js-progressbar-text-perc').html('DONE');
+	//$('.js-prog-' + index + '').addClass('done');
+	//$('.js-prog-' + index + '').removeClass('js-progress-downloader');
+	//PRODUCTION 
+	$('.js-prog-' + index + '').remove();
 
 	setTimeout(function(){ 
 		downloadsInProgress = getDownloadsInProgress ();
@@ -378,7 +366,18 @@ function unloadProgressDownloader (index) {
 
 
 
-//TODO: WIRE UP FAIL
+/**
+ * XHR callback file loading error
+ * progress on transfers from the server to the client (downloads)
+ * https://forum.ionicframework.com/t/how-to-download-stuff-now-that-transfer-file-is-deprecated/127451/8
+ * 
+ * @param {*} index  //index in the array that this XHR is tracking
+ * @param {*} event 
+ */
+function onFileDownloadError (index, xhr, event) {
+	console.log('onFileDownloadError.event: ' + JSON.stringify(event) + '  ~-- status: ' + xhr.status + '  ~-- index: ' + index);
+	onFileDownloadFail(xhr.status, index);
+}
 
 /* on file download fail */
 function onFileDownloadFail(error, index) {
