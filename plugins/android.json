@@ -69,6 +69,9 @@
     },
     "cordova-plugin-background-download": {
       "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
     }
   },
   "dependent_plugins": {

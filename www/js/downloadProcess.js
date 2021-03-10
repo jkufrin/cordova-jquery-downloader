@@ -129,6 +129,10 @@ function beginDownloadProcess() {
 	ftCounter = 0;
 	ftArr = [];
 	fileDownloadErrorList = [];
+
+	//Turn On Background Mode
+	cordova.plugins.backgroundMode.enable();
+
 	downloadFile();
 
 	//TODO CAN WE CANCEL?
@@ -436,6 +440,9 @@ function updateFileDownloadProgress() {
 			var momentDate = moment(today).format("MMM Do YYYY, h:mm:ss a");
 			$('#last-updated').text(momentDate);
 		}
+
+		//Turn Off Background Mode
+		cordova.plugins.backgroundMode.disable();
 
 		//Everything downloaded, now set up the interface
 		// initContent();
