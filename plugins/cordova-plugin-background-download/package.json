@@ -1,0 +1,52 @@
+{
+  "_from": "cordova-plugin-background-download@0.0.2",
+  "_id": "cordova-plugin-background-download@0.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-HAHT3jQe+ELro8/vnI5M1l4BXGI=",
+  "_location": "/cordova-plugin-background-download",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-background-download@0.0.2",
+    "name": "cordova-plugin-background-download",
+    "escapedName": "cordova-plugin-background-download",
+    "rawSpec": "0.0.2",
+    "saveSpec": null,
+    "fetchSpec": "0.0.2"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-background-download/-/cordova-plugin-background-download-0.0.2.tgz",
+  "_shasum": "1c01d3de341ef842eba3cfef9c8e4cd65e015c62",
+  "_spec": "cordova-plugin-background-download@0.0.2",
+  "_where": "/Users/jkufrin/Documents/JOBS/MediaDynamics/test2",
+  "author": {
+    "name": "rohitup"
+  },
+  "bugs": {
+    "url": "https://github.com/rohitup/background-download/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-background-download",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Background Download Plugin",
+  "homepage": "https://github.com/rohitup/Multilangprint#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "ISC",
+  "name": "cordova-plugin-background-download",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohitup/background-download.git"
+  },
+  "version": "0.0.2"
+}

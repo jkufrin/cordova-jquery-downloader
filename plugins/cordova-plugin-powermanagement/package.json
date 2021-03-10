@@ -1,0 +1,62 @@
+{
+  "_from": "cordova-plugin-powermanagement@^1.0.5",
+  "_id": "cordova-plugin-powermanagement@1.0.5",
+  "_inBundle": false,
+  "_integrity": "sha1-Pyc03r4niufFj3+95SJdL6Z2ZyU=",
+  "_location": "/cordova-plugin-powermanagement",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-plugin-powermanagement@^1.0.5",
+    "name": "cordova-plugin-powermanagement",
+    "escapedName": "cordova-plugin-powermanagement",
+    "rawSpec": "^1.0.5",
+    "saveSpec": null,
+    "fetchSpec": "^1.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-powermanagement/-/cordova-plugin-powermanagement-1.0.5.tgz",
+  "_shasum": "3f2734debe278ae7c58f7fbde5225d2fa6766725",
+  "_spec": "cordova-plugin-powermanagement@^1.0.5",
+  "_where": "/Users/jkufrin/Documents/JOBS/MediaDynamics/test2",
+  "author": {
+    "name": "cranberrygame"
+  },
+  "bugs": {
+    "url": "https://github.com/cranberrygame/cordova-plugin-powermanagement/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-powermanagement",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "full wake lock for the app which runs for a long time without user interaction.",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/cranberrygame/cordova-plugin-powermanagement#readme",
+  "keywords": [
+    "cordova",
+    "power management",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-powermanagement",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cranberrygame/cordova-plugin-powermanagement.git"
+  },
+  "version": "1.0.5"
+}

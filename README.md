@@ -1,1 +1,1 @@
-# cordova-jquery-downloader
+# Cordova jQuery Downloader

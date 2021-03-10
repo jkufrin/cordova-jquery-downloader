@@ -1,0 +1,79 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-email-composer": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-google-analytics": {
+      "GMS_VERSION": "11.0.1",
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-powermanagement": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-androidx-adapter": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-file-opener2": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    },
+    "cordova-plugin-background-download": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.mediadynamics.downloadProcess"
+    }
+  }
+}

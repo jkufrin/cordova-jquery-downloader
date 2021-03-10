@@ -1,0 +1,66 @@
+{
+  "_from": "git+https://github.com/sitewaerts/cordova-plugin-document-viewer.git",
+  "_id": "cordova-plugin-document-viewer@1.0.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-document-viewer",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/sitewaerts/cordova-plugin-document-viewer.git",
+    "rawSpec": "git+https://github.com/sitewaerts/cordova-plugin-document-viewer.git",
+    "saveSpec": "git+https://github.com/sitewaerts/cordova-plugin-document-viewer.git",
+    "fetchSpec": "https://github.com/sitewaerts/cordova-plugin-document-viewer.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/sitewaerts/cordova-plugin-document-viewer.git#3cb472afa00acf978053a3e32c70216b03c51e90",
+  "_spec": "git+https://github.com/sitewaerts/cordova-plugin-document-viewer.git",
+  "_where": "/Users/jkufrin/Documents/JOBS/MediaDynamics/test2",
+  "author": {
+    "name": "Felix Schauerte"
+  },
+  "bugs": {
+    "url": "https://github.com/sitewaerts/cordova-plugin-document-viewer/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-document-viewer",
+    "platforms": [
+      "android",
+      "ios",
+      "windows"
+    ]
+  },
+  "deprecated": false,
+  "description": "PDF Document viewer cordova plugin for iOS, Android and Windows 8.1 + 10",
+  "devDependencies": {},
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "cordova": ">=10.0.0",
+        "cordova-android": ">=9.0.0",
+        "cordova-windows": ">=4.4.0"
+      }
+    }
+  },
+  "homepage": "https://github.com/sitewaerts/cordova-plugin-document-viewer#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-windows",
+    "pdf"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-document-viewer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sitewaerts/cordova-plugin-document-viewer.git"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,61 @@
+#app{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+.message{
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.progress-wrapper{
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    padding: .5rem;
+}
+
+.progress-holder{
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    background: white;
+    padding: .5rem 0;
+}
+.progressbar{
+    width: 1%;
+    height: 5px;
+    background: purple;
+}
+
+.progressbar-text{
+    width: auto;
+    height: auto;
+    font-size: .8rem;
+}
+
+.js-loader{
+    width: 100%;
+    margin: 0 auto;
+    word-break: break-all;
+}
+
+.bred{
+    border: 1px solid red;
+}
+.bblu{
+    border: 1px solid blue;
+}
+.bgrn{
+    border: 1px solid green;
+}
+
+.done{
+    background-color: yellow;
+}
