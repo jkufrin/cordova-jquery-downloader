@@ -1,0 +1,1 @@
+# cordova-jquery-downloader
