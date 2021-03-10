@@ -14,30 +14,31 @@
 var filesToDownload = [
 	{
 		name: 'test-5mb.zip',
-		url: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
-		lastUpdated: '2021-02-14T17:58:31Z'
-	},
-	{
-		name: 'test-10mb.zip',
-		url: 'http://87.76.21.20/test.zip',
-		lastUpdated: '2021-02-15T17:58:31Z'
-	},
-	{
-		name: 'test-20mb.zip',
-		url: 'http://ipv4.download.thinkbroadband.com/20MB.zip',
-		lastUpdated: '2021-02-14T17:58:31Z'
-	},
-	{
-		name: 'test-50mb.zip',
-		url: 'http://ipv4.download.thinkbroadband.com/50MB.zip',
-		lastUpdated: '2021-02-14T17:58:31Z'
-	},
-	{
-		name: 'test-100mb.zip',
-		url: 'http://ipv4.download.thinkbroadband.com/100MB.zip',
+		url: 'http://ipv4.download.thinkbroadband.com/5MBxxxx.zip',
 		lastUpdated: '2021-02-14T17:58:31Z'
 	}
-]
+	// ,
+	// {
+	// 	name: 'test-10mb.zip',
+	// 	url: 'http://87.76.21.20/test.zip',
+	// 	lastUpdated: '2021-02-15T17:58:31Z'
+	// },
+	// {
+	// 	name: 'test-20mb.zip',
+	// 	url: 'http://ipv4.download.thinkbroadband.com/20MB.zip',
+	// 	lastUpdated: '2021-02-14T17:58:31Z'
+	// },
+	// {
+	// 	name: 'test-50mb.zip',
+	// 	url: 'http://ipv4.download.thinkbroadband.com/50MB.zip',
+	// 	lastUpdated: '2021-02-14T17:58:31Z'
+	// },
+	// {
+	// 	name: 'test-100mb.zip',
+	// 	url: 'http://ipv4.download.thinkbroadband.com/100MB.zip',
+	// 	lastUpdated: '2021-02-14T17:58:31Z'
+	// }
+];
 
 
 
@@ -45,6 +46,7 @@ var filesToDownload = [
 var downloadFileName, downloadFileURL, downloadFileDate;
 var appFileSystem, appRootUrl;
 var filesDownloaded, isUpdating;
+var fileDownloadErrorList;
 
 var downloadingArr = [];
 var ftCounter = 0;//FileTransferCounter
@@ -100,10 +102,10 @@ function beginDownloadProcess() {
 	downloadingArr = [];
 	ftCounter = 0;
 	ftArr = [];
+	fileDownloadErrorList = [];
 	downloadFile();
 
 	//TODO CAN WE CANCEL?
-	//TODO: FINSH STYLING
 }
 
 function downloadFile() {
@@ -111,14 +113,6 @@ function downloadFile() {
 	
 	if (filesToDownload.length > 0) {
 		console.log('filesToDownload[0]: ' + JSON.stringify(filesToDownload[0]));
-		// downloadFileName = filesToDownload[0].name;
-		// downloadFileURL = filesToDownload[0].url;
-		// downloadFileDate = filesToDownload[0].lastUpdated;
-
-		// console.log('Download this file: ' + downloadFileName);
-		// console.log('From Here: ' + downloadFileURL);
-		// console.log('File Last Update: ' + downloadFileDate);
-
 		if (filesToDownload[0].name == "") {
 			//error
 			console.log('no file name, skipping file');
@@ -144,12 +138,6 @@ function gotFSForDownload(error) {
 
 function successFileExists(file){
 	console.log('successFileExists');
-
-	//set the storage var
-	//if(!appStorageDir){
-		//appStorageDir = file.toNativeURL().substr(0, file.toNativeURL().lastIndexOf("/") + 1);
-	//}
-	//console.log('successFileExists.appStorageDir: ' + appStorageDir);
 
 	if(isUpdating){
 		var storedLastUpdated = localStorage.getItem('lastUpdated');
@@ -196,19 +184,19 @@ function failFileDoesNotExist(error) {
 
 /**
  * Start file transfer with XHR
+ * Track downloads in a new array: downloadingArr
  * Create a FileTransferArray, then create each new instance as part of the array so they don't get overwritten
  * Add event listeners, binding the counter so you can keep track of the multiple items running
  * https://stackoverflow.com/questions/51564660/xmlhttprequest-in-cordova-for-android
  */
 function startFileTransfer(){
 	console.log('startFileTransfer().ftCounter: ' + ftCounter);
-	//downloadingArr.push(filesToDownload[0]);
+
 	downloadingArr[ftCounter] = filesToDownload[0];
 	filesToDownload.shift();
 	console.log('startFileTransfer.downloadingArr.pushed: ' + JSON.stringify(downloadingArr));
 
-	
-
+	//progress holder template
 	var divProg = '<div class="progress-holder js-progress-downloader js-prog-' + ftCounter + '">';
 			divProg += '<div class="progressbar-text js-progressbar-text">';
 				divProg += '<span class="title">' + ftCounter + ': ' + downloadingArr[ftCounter].name + '</span>';
@@ -217,15 +205,14 @@ function startFileTransfer(){
 			divProg += '<div class="progressbar js-progressbar"></div>';
 		divProg += '</div>';
 
-
 	$('.js-loader').append(divProg);
-	$('#status-title').html("Files remaining: " + filesToDownload.length);
+	$('#status-title').html("Files remaining to queue: " + filesToDownload.length);
 
 	//creat download
 	ftArr[ftCounter] = new XMLHttpRequest();
 	ftArr[ftCounter].addEventListener("progress", onFileProgress.bind(null, ftCounter));
 	ftArr[ftCounter].addEventListener("load", onFileDownloadSuccess.bind(null, ftCounter, ftArr[ftCounter]));
-	ftArr[ftCounter].addEventListener("error", onFileDownloadError.bind(null, ftCounter));
+	ftArr[ftCounter].addEventListener("error", onFileDownloadError.bind(null, ftCounter, ftArr[ftCounter]));
 
 	// Make sure you add the domain name to the Content-Security-Policy <meta> element.
 	ftArr[ftCounter].open("GET", downloadingArr[ftCounter].url, true);
@@ -234,12 +221,11 @@ function startFileTransfer(){
 	//start download
 	ftArr[ftCounter].send(null);
 
-
 	ftCounter ++;//increment counter
 	console.log("startFileTransfer.ftCounter++ " + ftCounter);
 
 	downloadsInProgress = getDownloadsInProgress ();
-	$('#status-body').html("Downloads remaining1: " + downloadsInProgress);
+	$('#status-body').html("Downloads remaining: " + downloadsInProgress);
 	if(downloadsInProgress < maxDownloads) {
 		console.log('download started, and theres room for more! shift, update, and check the list');
 		
@@ -271,8 +257,9 @@ function getDownloadsInProgress () {
  * @param {*} index  //index in the array that this XHR is tracking
  * @param {*} event 
  */
-function onFileDownloadError (index, event) {
-	console.log('onFileDownloadError.event: ' + event + '  ~-- index: ' + index);
+function onFileDownloadError (index, xhr, event) {
+	console.log('onFileDownloadError.event: ' + JSON.stringify(event) + '  ~-- status: ' + xhr.status + '  ~-- index: ' + index);
+	onFileDownloadFail(xhr.status, index);
 }
 
 
@@ -287,7 +274,7 @@ function onFileDownloadError (index, event) {
 function onFileProgress (index, event) {
 	if (event.lengthComputable) {
 		var percentComplete = event.loaded / event.total * 100;
-		console.log('onFileProgress.percentComplete: ' + percentComplete + '  ~-- index: ' + index);
+		//console.log('onFileProgress.percentComplete: ' + percentComplete + '  ~-- index: ' + index);
 
 		$('.js-prog-' + index + ' .js-progressbar-text-perc').html(percentComplete.toFixed(2) + '%');
 		$('.js-prog-' + index + ' .js-progressbar').css("width", percentComplete + "%");
@@ -308,11 +295,17 @@ function onFileDownloadSuccess (index, xhr, event) {
 	//console.log('onFileDownloadSuccess.event: ' + JSON.stringify(event));
 	console.log('onFileDownloadSuccess.index: ' + index);
 	console.log('onFileDownloadSuccess.xhr.response: ' + xhr.response);
+	console.log('onFileDownloadSuccess.xhr.status: ' + xhr.status);
+
+	if(xhr.status != 200) {
+		console.log('fileDownloadFailed.status: ' + xhr.status);
+		onFileDownloadFail(xhr.status, index);
+		return false;
+	}
+
 	var blob = xhr.response;
 	console.log('blob.size: ' + blob.size);
 	console.log('blob.type: ' + blob.type);
-	console.log("onFileDownloadSuccess.WORKS!!!!");
-	//console.log("onFileDownloadSuccess.ftCounter: " + ftCounter);
 
 	// Save the file in the main storage
 	appFileSystem.root.getFile(downloadingArr[index].name, { create: true }, function (fileEntry) {
@@ -320,21 +313,12 @@ function onFileDownloadSuccess (index, xhr, event) {
 		fileEntry.createWriter(function (fileWriter) {
 			fileWriter.onwriteend = function (e) {
 				console.log('Write of file completed: ' + downloadingArr[index].name);
-
-				$('.js-prog-' + index + ' .js-progressbar-text-perc').html('DONE');
-				$('.js-prog-' + index + '').addClass('done');
-				$('.js-prog-' + index + '').removeClass('js-progress-downloader');//TODO: SWITCH TO REMOVE DIV COMPLETELY
-
-				setTimeout(function(){ 
-					downloadsInProgress = getDownloadsInProgress ();
-					$('#status-body').html("Downloads remaining2: " + downloadsInProgress);
-
-					updateFileDownloadProgress();  
-				}, 300);
+				unloadProgressDownloader (index);
 
 			};
 			fileWriter.onerror = function (e) {
 				console.log('Write failed: ' + downloadingArr[index].name);
+				onFileDownloadFail('Write failed', index)
 			};
 			fileWriter.write(blob);
 		} );
@@ -347,19 +331,40 @@ function onFileDownloadSuccess (index, xhr, event) {
 
 
 
+/**
+ * Unload progress downloader from screen
+ * @param {*} index 
+ */
+function unloadProgressDownloader (index) {
+	$('.js-prog-' + index + ' .js-progressbar-text-perc').html('DONE');
+	$('.js-prog-' + index + '').addClass('done');
+	$('.js-prog-' + index + '').removeClass('js-progress-downloader');//TODO: DEV ONLY - SWITCH TO REMOVE DIV COMPLETELY
+	$('.js-prog-' + index + '').remove();//TODO: PRODUCTION 
+
+	setTimeout(function(){ 
+		downloadsInProgress = getDownloadsInProgress ();
+		$('#status-body').html("Downloads remaining: " + downloadsInProgress);
+
+		updateFileDownloadProgress();  
+	}, 300);
+}
+
+
 
 
 //TODO: WIRE UP FAIL
 
 /* on file download fail */
-function onFileDownloadFail(error) {
+function onFileDownloadFail(error, index) {
 	console.log('file not downloaded. Error: ' + JSON.stringify(error));
 	fileDownloadError = true;
-	fileDownloadErrorList.push(filesToDownload[0]);
+	fileDownloadErrorList.push(downloadingArr[index]);
 
 	downloadingArr.shift();
+	unloadProgressDownloader(index);
+
 	//filesToDownload.shift();
-	updateFileDownloadProgress();
+	//updateFileDownloadProgress();
 }
 
 
@@ -367,16 +372,22 @@ function onFileDownloadFail(error) {
 /* update file download progress */
 function updateFileDownloadProgress() {
 	console.log('updateFileDownloadProgress Files remaining: ' + filesToDownload.length);
-	$('#status-title').html("File check remaining: " + filesToDownload.length);
+	$('#status-title').html("Files remaining to queue: " + filesToDownload.length);
 
 	if (filesToDownload.length == 0) {
 
-		//TODO: IF NO MORE TO QUEUE UP, CHECK WHAT IS CURRENTLY DOWNLOADING
-
+		//IF NO MORE TO QUEUE UP, CHECK WHAT IS CURRENTLY DOWNLOADING
 		downloadsInProgress = getDownloadsInProgress ();	
 		if(downloadsInProgress > 0) {
 			console.log('keep running until all files are done downloading and writing to system');
 			return false;
+		}
+
+
+		console.log('~~~~~~> fileDownloadErrorList: ' + JSON.stringify(fileDownloadErrorList));
+		var errorMsg = '';
+		if(fileDownloadErrorList.length > 0) {
+			errorMsg = ' Number of errors: ' + fileDownloadErrorList.length;
 		}
 
 		filesDownloaded = 'true';
@@ -386,11 +397,11 @@ function updateFileDownloadProgress() {
 
 		if(!isUpdating){
 			$('#status-title').html('Asset');
-			$('#status-body').html('Check complete.');
+			$('#status-body').html('Check complete.' + errorMsg);
 
 		} else if(isUpdating){
 			$('#status-title').html('Asset');
-			$('#status-body').html('Update complete.');
+			$('#status-body').html('Update complete.' + errorMsg);
 
 			var today = moment();
 			//need to make this match the date layout

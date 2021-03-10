@@ -52,6 +52,9 @@
 .progressbar-text .title{
     margin-right: .5rem;
 }
+.progressbar-text .prog{
+    font-weight: 700;
+}
 
 .js-loader{
     width: 100%;
