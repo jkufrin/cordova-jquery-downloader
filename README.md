@@ -6,7 +6,9 @@
 
 ## TODO
 - could update the status after 100% and before done to a writing file status
+- file writer causes progress to slow
 - add cancel button(s)
+- memory issue
 
 
 ## Cordova Plugins

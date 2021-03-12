@@ -11,6 +11,8 @@
 
 
 //----REFERENCE-----//
+
+//NOTE: ANDROID REQUIRES HTTPS URLS
 var filesToDownload = [
 	{
 		name: 'image0.jpg',
@@ -45,27 +47,32 @@ var filesToDownload = [
 	},
 
 	{
-		name: 'asdf-5mb.zip',
+		name: 'image1.jpg',
+		url: 'https://www.travelwisconsin.com/uploads/medialibrary/39/393c212b-df32-47f6-8d3b-d47666842348-kohler-beach-marquee_1905x782_ll.jpg',
+		lastUpdated: '2021-02-14T17:58:31Z'
+	},
+	{
+		name: 'test2-5mb.zip',
 		url: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
 		lastUpdated: '2021-02-14T17:58:31Z'
 	},
 	{
-		name: 'asdf-10mb.zip',
+		name: 'test2-10mb.zip',
 		url: 'http://87.76.21.20/test.zip',
 		lastUpdated: '2021-02-15T17:58:31Z'
 	},
 	{
-		name: 'asdf-20mb.zip',
+		name: 'test2-20mb.zip',
 		url: 'http://ipv4.download.thinkbroadband.com/20MB.zip',
 		lastUpdated: '2021-02-14T17:58:31Z'
 	},
 	{
-		name: 'asdf-50mb.zip',
+		name: 'test2-50mb.zip',
 		url: 'http://ipv4.download.thinkbroadband.com/50MB.zip',
 		lastUpdated: '2021-02-14T17:58:31Z'
 	},
 	{
-		name: 'asdf-100mb.zip',
+		name: 'test2-100mb.zip',
 		url: 'http://ipv4.download.thinkbroadband.com/100MB.zip',
 		lastUpdated: '2021-02-14T17:58:31Z'
 	}
@@ -139,8 +146,6 @@ function beginDownloadProcess() {
 	cordova.plugins.backgroundMode.enable();
 
 	downloadFile();
-
-	//TODO CAN WE CANCEL?
 }
 
 function downloadFile() {
@@ -243,7 +248,7 @@ function startFileTransfer(){
 	$('.js-loader').append(divProg);
 	$('#status-title').html("Files remaining to queue: " + filesToDownload.length);
 
-	//creat download
+	//create download
 	ftArr[ftCounter] = new XMLHttpRequest();
 	ftArr[ftCounter].addEventListener("progress", onFileProgress.bind(null, ftCounter));
 	ftArr[ftCounter].addEventListener("load", onFileDownloadSuccess.bind(null, ftCounter, ftArr[ftCounter]));
@@ -364,6 +369,8 @@ function unloadProgressDownloader (index) {
 	//PRODUCTION 
 	$('.js-prog-' + index + '').remove();
 
+	ftArr[index] = null;//clear this instance of the array
+
 	setTimeout(function(){ 
 		downloadsInProgress = getDownloadsInProgress ();
 		$('#status-body').html("Downloads remaining: " + downloadsInProgress);
@@ -453,6 +460,12 @@ function updateFileDownloadProgress() {
 		// initContent();
 
 	} else {
-		downloadFile();
+		
+		downloadsInProgress = getDownloadsInProgress ();
+		if(downloadsInProgress < maxDownloads) {
+			downloadFile();
+		} else {
+			console.log('too many already downloading');
+		}
 	}
 }

@@ -58,16 +58,6 @@
 	margin-bottom: 10px;
 }
 
-.bred{
-    border: 1px solid red;
-}
-.bblu{
-    border: 1px solid blue;
-}
-.bgrn{
-    border: 1px solid green;
-}
-
 .done{
-    background-color: yellow;
+    background-color: yellowgreen;
 }
